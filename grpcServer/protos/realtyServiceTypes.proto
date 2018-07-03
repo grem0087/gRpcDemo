@@ -1,0 +1,27 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "DowntownRealty";
+
+message User
+{
+	int32  id = 1;
+	string name = 2;
+	string email = 3;
+	string phone = 4;
+}
+
+message RealtyAd
+{
+	int32  id = 1;
+	RealtyType type =2;
+	string topic = 3;
+	string message  = 4;
+	string phone = 5;
+}
+
+enum RealtyType
+{
+    HOUSE = 0;
+    APARTMENTS = 1;
+    COMERCIAL = 2;
+}

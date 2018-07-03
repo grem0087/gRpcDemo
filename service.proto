@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "ServerCode";
+
+package proto;
+
+service Calculation {
+	rpc Calculate(CalcRequest) returns (CalcResponse) {}
+}
+
+message CalcRequest {}
+
+message CalcResponse{
+	int32 result = 1;
+}

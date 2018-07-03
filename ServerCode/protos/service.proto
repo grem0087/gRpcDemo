@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option csharp_namespace = "Dictionary";
+
+message DictionaryResponse {
+    repeated string books = 1;
+}
+message DictionaryRequest {
+    repeated string books = 1;
+}
+
+service DictionaryService{
+    rpc GetByNames (DictionaryRequest) returns (DictionaryResponse);
+}
