@@ -1,4 +1,5 @@
-﻿using DowntownRealty;
+﻿using AutoMapper;
+using DowntownRealty;
 using Grpc.Core;
 using grpcServer.Core;
 using grpcServer.Infrastructure;
@@ -10,6 +11,8 @@ namespace grpcServer
 {
     class Program
     {
+        private static readonly int ServerPort = 2323;
+
         static void Main(string[] args)
         {
             var unity = DiContainer.GetContainer();
@@ -18,11 +21,11 @@ namespace grpcServer
             var server = new Server
             {
                 Services = { BindService(service) },
-                Ports = { new ServerPort("localhost", 2323, ServerCredentials.Insecure) }
+                Ports = { new ServerPort("localhost", ServerPort, ServerCredentials.Insecure) }
             };
             server.Start();
 
-            Console.WriteLine("Greeter server listening on port " + 2323);
+            Console.WriteLine("Greeter server listening on port " + ServerPort);
             Console.WriteLine("Press any key to stop the server...");
             Console.ReadKey();
 

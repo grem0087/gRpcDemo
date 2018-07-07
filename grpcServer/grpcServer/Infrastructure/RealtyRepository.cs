@@ -16,8 +16,8 @@ namespace grpcServer.Infrastructure
 
         public RealtyRepository()
         {
-            var fileDictionary = File.ReadAllText(@".\AppData\Dictionaries.json");
-            //realtyDictionary = JsonConvert.DeserializeObject<Dictionary<RealtyTypeEntity, RealtyAdEntity[]>>(fileDictionary);
+            var fileDictionary = File.ReadAllText(@".\AppData\Realty.json");
+            realtyDictionary = JsonConvert.DeserializeObject<Dictionary<RealtyTypeEntity, RealtyAdEntity[]>>(fileDictionary);
         }
 
         public RealtyAdEntity[] ListByName(RealtyTypeEntity names)

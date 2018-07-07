@@ -24,16 +24,18 @@ namespace DowntownRealty {
           string.Concat(
             "ChhyZWFsdHlTZXJ2aWNlVHlwZXMucHJvdG8iPgoEVXNlchIKCgJpZBgBIAEo",
             "BRIMCgRuYW1lGAIgASgJEg0KBWVtYWlsGAMgASgJEg0KBXBob25lGAQgASgJ",
-            "ImAKCFJlYWx0eUFkEgoKAmlkGAEgASgFEhkKBHR5cGUYAiABKA4yCy5SZWFs",
-            "dHlUeXBlEg0KBXRvcGljGAMgASgJEg8KB21lc3NhZ2UYBCABKAkSDQoFcGhv",
-            "bmUYBSABKAkqNgoKUmVhbHR5VHlwZRIJCgVIT1VTRRAAEg4KCkFQQVJUTUVO",
-            "VFMQARINCglDT01FUkNJQUwQAkIRqgIORG93bnRvd25SZWFsdHliBnByb3Rv",
-            "Mw=="));
+            "IoIBCghSZWFsdHlBZBIKCgJpZBgBIAEoBRIZCgR0eXBlGAIgASgOMgsuUmVh",
+            "bHR5VHlwZRINCgV0b3BpYxgDIAEoCRIPCgdtZXNzYWdlGAQgASgJEiAKB2Fk",
+            "ZHJlc3MYBSABKAsyDy5OdWxsYWJsZVN0cmluZxINCgVwaG90bxgGIAEoCSIf",
+            "Cg5OdWxsYWJsZVN0cmluZxINCgV2YWx1ZRgBIAEoCSo2CgpSZWFsdHlUeXBl",
+            "EgkKBUhPVVNFEAASDgoKQVBBUlRNRU5UUxABEg0KCUNPTUVSQ0lBTBACQhGq",
+            "Ag5Eb3dudG93blJlYWx0eWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::DowntownRealty.RealtyType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::DowntownRealty.User), global::DowntownRealty.User.Parser, new[]{ "Id", "Name", "Email", "Phone" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::DowntownRealty.RealtyAd), global::DowntownRealty.RealtyAd.Parser, new[]{ "Id", "Type", "Topic", "Message", "Phone" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::DowntownRealty.RealtyAd), global::DowntownRealty.RealtyAd.Parser, new[]{ "Id", "Type", "Topic", "Message", "Address", "Photo" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::DowntownRealty.NullableString), global::DowntownRealty.NullableString.Parser, new[]{ "Value" }, null, null, null)
           }));
     }
     #endregion
@@ -278,7 +280,8 @@ namespace DowntownRealty {
       type_ = other.type_;
       topic_ = other.topic_;
       message_ = other.message_;
-      phone_ = other.phone_;
+      Address = other.address_ != null ? other.Address.Clone() : null;
+      photo_ = other.photo_;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -330,14 +333,25 @@ namespace DowntownRealty {
       }
     }
 
-    /// <summary>Field number for the "phone" field.</summary>
-    public const int PhoneFieldNumber = 5;
-    private string phone_ = "";
+    /// <summary>Field number for the "address" field.</summary>
+    public const int AddressFieldNumber = 5;
+    private global::DowntownRealty.NullableString address_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Phone {
-      get { return phone_; }
+    public global::DowntownRealty.NullableString Address {
+      get { return address_; }
       set {
-        phone_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        address_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "photo" field.</summary>
+    public const int PhotoFieldNumber = 6;
+    private string photo_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Photo {
+      get { return photo_; }
+      set {
+        photo_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -358,7 +372,8 @@ namespace DowntownRealty {
       if (Type != other.Type) return false;
       if (Topic != other.Topic) return false;
       if (Message != other.Message) return false;
-      if (Phone != other.Phone) return false;
+      if (!object.Equals(Address, other.Address)) return false;
+      if (Photo != other.Photo) return false;
       return true;
     }
 
@@ -369,7 +384,8 @@ namespace DowntownRealty {
       if (Type != 0) hash ^= Type.GetHashCode();
       if (Topic.Length != 0) hash ^= Topic.GetHashCode();
       if (Message.Length != 0) hash ^= Message.GetHashCode();
-      if (Phone.Length != 0) hash ^= Phone.GetHashCode();
+      if (address_ != null) hash ^= Address.GetHashCode();
+      if (Photo.Length != 0) hash ^= Photo.GetHashCode();
       return hash;
     }
 
@@ -396,9 +412,13 @@ namespace DowntownRealty {
         output.WriteRawTag(34);
         output.WriteString(Message);
       }
-      if (Phone.Length != 0) {
+      if (address_ != null) {
         output.WriteRawTag(42);
-        output.WriteString(Phone);
+        output.WriteMessage(Address);
+      }
+      if (Photo.Length != 0) {
+        output.WriteRawTag(50);
+        output.WriteString(Photo);
       }
     }
 
@@ -417,8 +437,11 @@ namespace DowntownRealty {
       if (Message.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
-      if (Phone.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Phone);
+      if (address_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Address);
+      }
+      if (Photo.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Photo);
       }
       return size;
     }
@@ -440,8 +463,14 @@ namespace DowntownRealty {
       if (other.Message.Length != 0) {
         Message = other.Message;
       }
-      if (other.Phone.Length != 0) {
-        Phone = other.Phone;
+      if (other.address_ != null) {
+        if (address_ == null) {
+          address_ = new global::DowntownRealty.NullableString();
+        }
+        Address.MergeFrom(other.Address);
+      }
+      if (other.Photo.Length != 0) {
+        Photo = other.Photo;
       }
     }
 
@@ -470,7 +499,131 @@ namespace DowntownRealty {
             break;
           }
           case 42: {
-            Phone = input.ReadString();
+            if (address_ == null) {
+              address_ = new global::DowntownRealty.NullableString();
+            }
+            input.ReadMessage(address_);
+            break;
+          }
+          case 50: {
+            Photo = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class NullableString : pb::IMessage<NullableString> {
+    private static readonly pb::MessageParser<NullableString> _parser = new pb::MessageParser<NullableString>(() => new NullableString());
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<NullableString> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::DowntownRealty.RealtyServiceTypesReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NullableString() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NullableString(NullableString other) : this() {
+      value_ = other.value_;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public NullableString Clone() {
+      return new NullableString(this);
+    }
+
+    /// <summary>Field number for the "value" field.</summary>
+    public const int ValueFieldNumber = 1;
+    private string value_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Value {
+      get { return value_; }
+      set {
+        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as NullableString);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(NullableString other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Value != other.Value) return false;
+      return true;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Value.Length != 0) hash ^= Value.GetHashCode();
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Value.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Value);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Value.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(NullableString other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Value.Length != 0) {
+        Value = other.Value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            input.SkipLastField();
+            break;
+          case 10: {
+            Value = input.ReadString();
             break;
           }
         }

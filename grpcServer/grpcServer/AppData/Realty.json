@@ -1,0 +1,41 @@
+﻿{
+  "1": [
+    {
+      "Id": 1,
+      "Type": 0,
+      "Topic": "myrealty house 1",
+      "Message": "blah blah blah",
+      "Photo": "house1"
+    },
+    {
+      "Id": 1,
+      "Type": 0,
+      "Topic": "myrealty house 2",
+      "Message": "blah blah qwdqwd blah",
+      "Photo": "house2",
+      "Phone": { "Value": "123 123 123" }
+    },
+    {
+      "Id": 1,
+      "Type": 1,
+      "Topic": "very good flat 1",
+      "Photo": "flat1",
+      "Message": "i dont know wat to say animore"
+    },
+    {
+      "Id": 4,
+      "Type": 1,
+      "Topic": "very good flat",
+      "Message": "i dont know wat to say animore",
+      "Photo": "falat2",
+      "Phone": { "Value": "000 000" }
+    },
+    {
+      "Id": 4,
+      "Type": 2,
+      "Topic": "Plant",
+      "Photo": "commercial1",
+      "Message": "Very good plant"
+    }
+  ]
+  }
