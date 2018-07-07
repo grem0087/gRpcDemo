@@ -1,6 +1,6 @@
 # gRpcDemo
 
-```
+ ```protobuf
 syntax = "proto3";
 
 option csharp_namespace = "DowntownRealty";
@@ -28,9 +28,10 @@ enum RealtyType
     APARTMENTS = 1;
     COMERCIAL = 2;
 }
-
  ```
- syntax = "proto3";
+ 
+ ```protobuf
+syntax = "proto3";
 
 option csharp_namespace = "DowntownRealty";
 import "realtyServiceTypes.proto";
@@ -46,3 +47,22 @@ message  RealtyListRequest{
 message  UserRequest{
 	int64 id = 1;
 }
+
+message  RealtyResponse{
+	RealtyAd message = 1;
+}
+
+message  RealtyListResponse{
+	repeated RealtyAd realties = 1;
+}
+
+message  UserResponse{
+	User user = 1;
+}
+
+service DowntownRealty{
+    rpc GetRealtyById (RealtyRequest) returns (RealtyResponse);
+	rpc GetRealtyList (RealtyListRequest) returns (RealtyListResponse);
+	rpc GetUserById (UserRequest) returns (UserResponse);
+}
+```
