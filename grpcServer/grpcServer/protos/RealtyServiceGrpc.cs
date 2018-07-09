@@ -13,12 +13,21 @@ namespace DowntownRealty {
   {
     static readonly string __ServiceName = "DowntownRealty";
 
+    static readonly grpc::Marshaller<global::DowntownRealty.EmptyRequest> __Marshaller_EmptyRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.EmptyRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::DowntownRealty.EmptyResponse> __Marshaller_EmptyResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.EmptyResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::DowntownRealty.RealtyRequest> __Marshaller_RealtyRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.RealtyRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::DowntownRealty.RealtyResponse> __Marshaller_RealtyResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.RealtyResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::DowntownRealty.RealtyListRequest> __Marshaller_RealtyListRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.RealtyListRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::DowntownRealty.RealtyListResponse> __Marshaller_RealtyListResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.RealtyListResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::DowntownRealty.UserRequest> __Marshaller_UserRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.UserRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::DowntownRealty.UserResponse> __Marshaller_UserResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::DowntownRealty.UserResponse.Parser.ParseFrom);
+
+    static readonly grpc::Method<global::DowntownRealty.EmptyRequest, global::DowntownRealty.EmptyResponse> __Method_HellowWorld = new grpc::Method<global::DowntownRealty.EmptyRequest, global::DowntownRealty.EmptyResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "HellowWorld",
+        __Marshaller_EmptyRequest,
+        __Marshaller_EmptyResponse);
 
     static readonly grpc::Method<global::DowntownRealty.RealtyRequest, global::DowntownRealty.RealtyResponse> __Method_GetRealtyById = new grpc::Method<global::DowntownRealty.RealtyRequest, global::DowntownRealty.RealtyResponse>(
         grpc::MethodType.Unary,
@@ -41,6 +50,13 @@ namespace DowntownRealty {
         __Marshaller_UserRequest,
         __Marshaller_UserResponse);
 
+    static readonly grpc::Method<global::DowntownRealty.UserRequest, global::DowntownRealty.UserResponse> __Method_UserExchange = new grpc::Method<global::DowntownRealty.UserRequest, global::DowntownRealty.UserResponse>(
+        grpc::MethodType.DuplexStreaming,
+        __ServiceName,
+        "UserExchange",
+        __Marshaller_UserRequest,
+        __Marshaller_UserResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -50,6 +66,11 @@ namespace DowntownRealty {
     /// <summary>Base class for server-side implementations of DowntownRealty</summary>
     public abstract partial class DowntownRealtyBase
     {
+      public virtual global::System.Threading.Tasks.Task<global::DowntownRealty.EmptyResponse> HellowWorld(global::DowntownRealty.EmptyRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       public virtual global::System.Threading.Tasks.Task<global::DowntownRealty.RealtyResponse> GetRealtyById(global::DowntownRealty.RealtyRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
@@ -65,6 +86,11 @@ namespace DowntownRealty {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      public virtual global::System.Threading.Tasks.Task UserExchange(grpc::IAsyncStreamReader<global::DowntownRealty.UserRequest> requestStream, grpc::IServerStreamWriter<global::DowntownRealty.UserResponse> responseStream, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -72,9 +98,11 @@ namespace DowntownRealty {
     public static grpc::ServerServiceDefinition BindService(DowntownRealtyBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_HellowWorld, serviceImpl.HellowWorld)
           .AddMethod(__Method_GetRealtyById, serviceImpl.GetRealtyById)
           .AddMethod(__Method_GetRealtyList, serviceImpl.GetRealtyList)
-          .AddMethod(__Method_GetUserById, serviceImpl.GetUserById).Build();
+          .AddMethod(__Method_GetUserById, serviceImpl.GetUserById)
+          .AddMethod(__Method_UserExchange, serviceImpl.UserExchange).Build();
     }
 
   }

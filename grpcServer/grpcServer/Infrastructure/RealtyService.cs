@@ -25,6 +25,29 @@ namespace grpcServer.Infrastructure
             _mapper = mapper;
         }
 
+        public override Task<EmptyResponse> HellowWorld(EmptyRequest request, ServerCallContext context)
+        {
+            var ss = 0;
+            Console.WriteLine("hlw");
+            return null;
+        }
+
+        public override async Task UserExchange(IAsyncStreamReader<UserRequest> requestStream, IServerStreamWriter<UserResponse> responseStream, ServerCallContext context)
+        { 
+            while (await requestStream.MoveNext(context.CancellationToken))
+            {
+                try
+                {
+                    Console.WriteLine("From client Received: " + requestStream.Current.Message);
+                    Console.Write("Send to client: ");
+                    await responseStream.WriteAsync(new UserResponse { Message = Console.ReadLine() });
+                }catch(Exception ex)
+                {
+                    Console.WriteLine();
+                }
+            }
+        }
+
         public override async Task<RealtyListResponse> GetRealtyList(RealtyListRequest request, ServerCallContext context)
         {
             try

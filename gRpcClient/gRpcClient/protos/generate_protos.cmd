@@ -21,6 +21,7 @@ cd /d %~dp0
 
 set TOOLS_PATH=%userprofile%\.nuget\packages\grpc.tools\1.8.0\tools\windows_x64
 
-%TOOLS_PATH%\protoc.exe ./service.proto --csharp_opt=base_namespace=Dictionary --csharp_out .  --grpc_out=no_client:. --plugin=protoc-gen-grpc=%TOOLS_PATH%\grpc_csharp_plugin.exe
+%TOOLS_PATH%\protoc.exe --proto_path=./../../../protos/ --csharp_out .  --grpc_out=no_server:. --plugin=protoc-gen-grpc=%TOOLS_PATH%\grpc_csharp_plugin.exe realtyServiceTypes.proto
+%TOOLS_PATH%\protoc.exe --proto_path=./../../../protos/ --csharp_out .  --grpc_out=no_server:. --plugin=protoc-gen-grpc=%TOOLS_PATH%\grpc_csharp_plugin.exe realtyService.proto
 
 endlocal
