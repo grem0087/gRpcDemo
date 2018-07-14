@@ -8,16 +8,23 @@ using System.Threading.Tasks;
 using Grpc.Core;
 using System;
 using Grpc.Core.Logging;
+using MagicOnion;
+using System.Threading;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace grpcServer.Infrastructure
 {
-    public class RealtyServiceImpl : DowntownRealtyBase
+    
+    public class RealtyServiceImpl : DowntownRealtyBase, IServer
     {
         IRealtyRepository _realtyRepository;
         IMapper _mapper;
 
         //todo: use logger
         ILogger logger;
+
+        public IFeatureCollection Features => throw new NotImplementedException();
 
         public RealtyServiceImpl(IMapper mapper, IRealtyRepository realtyRepository)
         {
@@ -65,6 +72,20 @@ namespace grpcServer.Infrastructure
             {
                 throw;
             }
+        }
+
+        public Task StartAsync<TContext>(IHttpApplication<TContext> application, CancellationToken cancellationToken)
+        {
+            return null;
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return null;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }
