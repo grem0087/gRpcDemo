@@ -34,41 +34,40 @@ namespace grpcServer
 
                 var unity = DiContainer.GetContainer();
                 var service = unity.Resolve<DowntownRealtyBase>();
+                var server = new Server()
+                {
+                    Services = { BindService(service) },
+                    Ports = { new ServerPort("localhost", ServerPort, ServerCredentials.Insecure), }
 
-                //var server = new Server()
-                //{
-                //    Services = { BindService(service) },
-                //    Ports = { new ServerPort("localhost", ServerPort, ServerCredentials.Insecure), }
-
-                //};
-                //server.Services.Add(Grpc.Health.V1.Health.BindService(new HealthServiceImpl()));
-                //server.Start();
+                };
+                server.Services.Add(Grpc.Health.V1.Health.BindService(new HealthServiceImpl()));
+                server.Start();
 
                 Console.WriteLine("Greeter server listening on port " + ServerPort);
                 Console.WriteLine("Press any key to stop the server...");
 
-                var webHost = new WebHostBuilder()
-                .ConfigureServices(services =>
-                {
-                    // Add MagicOnionServiceDefinition for reference from Startup.
-                    var server = new Server()
-                    {
-                        Services = { BindService(service) },
-                        Ports = { new ServerPort("localhost", ServerPort, ServerCredentials.Insecure), }
+                //var webHost = new WebHostBuilder()
+                //.ConfigureServices(services =>
+                //{
+                //    // Add MagicOnionServiceDefinition for reference from Startup.
+                //    var server = new Server()
+                //    {
+                //        Services = { BindService(service) },
+                //        Ports = { new ServerPort("localhost", ServerPort, ServerCredentials.Insecure), }
 
-                    };
-                    services.Add(new ServiceDescriptor(typeof(MagicOnionServiceDefinition), service));
-                    services.AddSingleton<Server>(server);
-                    services.AddSingleton<IServer, GrpcHostedService>();
-                })
-                .UseStartup<Startup>()
-                .UseUrls("http://localhost:5432")
-                .Build();
+                //    };
+                //    services.Add(new ServiceDescriptor(typeof(MagicOnionServiceDefinition), service));
+                //    services.AddSingleton<Server>(server);
+                //    services.AddSingleton<IServer, GrpcHostedService>();
+                //})
+                //.UseStartup<Startup>()
+                //.UseUrls("http://localhost:5432")
+                //.Build();
 
-                webHost.Run();
+                //webHost.Run();
                 Console.ReadLine();
 
-                //server.ShutdownAsync().Wait();
+                server.ShutdownAsync().Wait();
             }
             catch (Exception ex)
             {
@@ -110,7 +109,10 @@ namespace grpcServer
     {
         public void Configure(IApplicationBuilder app)
         {
-
+            //app.Use(async (context, nxt) =>
+            //{
+            //    if(context.Request.Path == ...
+            //});
         }
     }
 }

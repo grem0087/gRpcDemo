@@ -16,16 +16,14 @@ using Microsoft.AspNetCore.Http.Features;
 namespace grpcServer.Infrastructure
 {
     
-    public class RealtyServiceImpl : DowntownRealtyBase, IServer
+    public class RealtyServiceImpl : DowntownRealtyBase
     {
         IRealtyRepository _realtyRepository;
         IMapper _mapper;
 
         //todo: use logger
         ILogger logger;
-
-        public IFeatureCollection Features => throw new NotImplementedException();
-
+        
         public RealtyServiceImpl(IMapper mapper, IRealtyRepository realtyRepository)
         {
             _realtyRepository = realtyRepository;
