@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+option csharp_namespace = "DowntownRealty";
+import "google/api/annotations.proto";
+import "realtyServiceTypes.proto";
+
+message  RealtyRequest{
+	int64 id = 1;
+}
+
+message  RealtyListRequest{
+	RealtyType type = 1;
+}
+
+message  RealtyResponse{
+	RealtyAd message = 1;
+}
+
+message  RealtyListResponse{
+	repeated RealtyAd message = 1;
+}
+
+message  UserRequest{
+	User user = 1;
+	string message =2;
+}
+
+message  UserResponse{
+	User user = 1;
+	string message =2;
+}
+
+message EmptyRequest {}
+message EmptyResponse {}
+
+service DowntownRealty{
+	rpc HellowWorld (EmptyRequest) returns (EmptyResponse){
+		option (google.api.http).get = "/v1/hello";
+	}
+    rpc GetRealtyById (RealtyRequest) returns (RealtyResponse);
+	rpc GetRealtyList (RealtyListRequest) returns (RealtyListResponse){
+		option (google.api.http) = {
+		  get: "api/v1/realty"
+		  body: "*"
+		};
+	}
+	rpc GetUserById (UserRequest) returns (UserResponse);
+	rpc UserExchange (stream UserRequest) returns (stream UserResponse);
+}
