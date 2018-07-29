@@ -15,10 +15,13 @@ const app = http.createServer((request, response) => {
   path = query[0];
   
   if (path == 'realty' && realtyIndex >=0 &&  realtyIndex<4) {
+	  var meta = new grpc.Metadata();
+		meta.add('user', 'proger');
+		meta.add('password', '15475');
         var request = new messages.RealtyListRequest();
 		  request.setType(realtyIndex);
 		  
-		  var call = client.getRealtyList(request, function(err, responseGrpc) {
+		  var call = client.getRealtyList(request, meta, function(err, responseGrpc) {
 			  var responseGrpcObject = responseGrpc.toObject();
 			  response.writeHead(200, {"Content-Type": "text/html"});
 			  for(let i=0;i<responseGrpcObject.realtiesList.length; i++){
@@ -34,7 +37,7 @@ const app = http.createServer((request, response) => {
 	}
 });
 
-app.listen(3000);
+app.listen(3001);
 console.log("Server started at port 3000")
 
 function initialize(){

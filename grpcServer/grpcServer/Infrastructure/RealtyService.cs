@@ -32,7 +32,12 @@ namespace grpcServer.Infrastructure
 
         public override Task<EmptyResponse> HellowWorld(EmptyRequest request, ServerCallContext context)
         {
-            var ss = 0;
+            //if (request.Name.Length >= 10)
+            //{
+            //    const string msg = "Length of `Name` cannot be more than 10 characters";
+            //    throw new RpcException(new Status(StatusCode.InvalidArgument, msg));
+            //}
+            //return Task.FromResult(new HelloResp { Result = "Hey, " + request.Name + "!" });
             Console.WriteLine("hlw");
             return null;
         }

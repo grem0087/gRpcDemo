@@ -27,28 +27,19 @@ using Google.Apis.Auth.OAuth2;
 
 namespace grpcServer
 {
-    class Atock : ITokenAccess
-    {
-        public Task<string> GetAccessTokenForRequestAsync(string authUri = null, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            throw new NotImplementedException();
-        }
-    }
     class Program
     {
         private static readonly int ServerPort = 2323;
         
         static void Main(string[] args)
         {
-            var ss = GoogleAuthInterceptors.FromCredential(new Atock());
-
             try
             {
                 var unity = DiContainer.GetContainer();
                 var service = unity.Resolve<DowntownRealtyBase>();
-                var server = new Server(new[] { new ChannelOption(ChannelOptions.DefaultAuthority, 1) })
+                var server = new Server
                 {
-                    Services = { BindService(service)},
+                    Services = { BindService(service).Intercept(new ServerCallContextInterceptor()) },
                     Ports = { new ServerPort("localhost", ServerPort, ServerCredentials.Insecure), }
 
                 };
