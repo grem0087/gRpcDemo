@@ -16,7 +16,9 @@
 
 #endregion
 
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
 
 namespace Server
@@ -32,7 +34,14 @@ namespace Server
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel(options =>
+                        {
+                            options.ListenLocalhost(50051,
+                                listenOptions => listenOptions.Protocols = HttpProtocols.Http2);
+                            options.ListenLocalhost(8080,
+                                listenOptions => listenOptions.Protocols = HttpProtocols.Http1);
+                        })
+                        .UseStartup<Startup>();
                 });
     }
 }

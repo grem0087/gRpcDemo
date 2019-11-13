@@ -36,7 +36,10 @@ namespace Server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddGrpc();
+            
+            services.AddScoped<ITicketerService, TicketerService>();
             services.AddSingleton<TicketRepository>();
             services.AddSingleton<IncrementingCounter>();
 
@@ -77,6 +80,7 @@ namespace Server
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapGrpcService<TicketerService>();
                 endpoints.MapGrpcService<CounterService>();
 

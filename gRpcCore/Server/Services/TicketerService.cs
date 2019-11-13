@@ -24,7 +24,7 @@ using Ticket;
 
 namespace Server
 {
-    public class TicketerService : Ticketer.TicketerBase
+    public class TicketerService : Ticketer.TicketerBase, ITicketerService
     {
         private readonly TicketRepository _ticketRepository;
 
